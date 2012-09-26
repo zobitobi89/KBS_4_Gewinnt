@@ -10,6 +10,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainMenu {
 
@@ -46,11 +48,19 @@ public class MainMenu {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBounds(100, 100, 300, 220);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Play");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BoardGui boardgui = new BoardGui();
+				boardgui.createboardgui();
+				frame.dispose();
+			}
+		});
 		btnNewButton.setBounds(185, 148, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 		
@@ -78,11 +88,13 @@ public class MainMenu {
 		frame.getContentPane().add(chckbxKi);
 		
 		JCheckBox checkBox = new JCheckBox("KI");
+		checkBox.setSelected(true);
 		buttonGroup_2.add(checkBox);
 		checkBox.setBounds(217, 71, 49, 23);
 		frame.getContentPane().add(checkBox);
 		
 		JCheckBox chckbxHuman = new JCheckBox("Human");
+		chckbxHuman.setSelected(true);
 		buttonGroup_1.add(chckbxHuman);
 		chckbxHuman.setBounds(145, 31, 70, 23);
 		frame.getContentPane().add(chckbxHuman);
