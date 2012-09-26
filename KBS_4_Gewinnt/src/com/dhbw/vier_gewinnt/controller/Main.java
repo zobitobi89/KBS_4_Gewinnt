@@ -1,5 +1,7 @@
 package com.dhbw.vier_gewinnt.controller;
 
+import com.dhbw.vier_gewinnt.gui.MainMenu;
+
 public class Main {
 
 	/**
@@ -7,8 +9,10 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		MainMenu mainmenu = new MainMenu();
+		mainmenu.createmainmenu();
 		
-		System.out.println("Test");
+		
 	}
 
 }
