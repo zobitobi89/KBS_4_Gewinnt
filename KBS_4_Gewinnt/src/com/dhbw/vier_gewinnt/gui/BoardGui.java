@@ -16,10 +16,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class BoardGui {
 
-	private JFrame frame;
+	private JFrame frmGewinnt;
 	private JTable table;
 
 	/**
@@ -30,7 +31,7 @@ public class BoardGui {
 			public void run() {
 				try {
 					BoardGui window = new BoardGui();
-					window.frame.setVisible(true);
+					window.frmGewinnt.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,17 +50,19 @@ public class BoardGui {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setBounds(100, 100, 450, 300);
-		frame.getContentPane().setLayout(null);
+		frmGewinnt = new JFrame();
+		frmGewinnt.setTitle("4 Gewinnt - Game");
+		frmGewinnt.setIconImage(Toolkit.getDefaultToolkit().getImage(BoardGui.class.getResource("/resources/logo.png")));
+		frmGewinnt.setResizable(false);
+		frmGewinnt.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frmGewinnt.setBounds(100, 100, 450, 300);
+		frmGewinnt.getContentPane().setLayout(null);
 		
 		table = new JTable();
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		table.setBounds(10, 11, 424, 210);
 		table.setRowHeight(30);
-		frame.getContentPane().add(table);
+		frmGewinnt.getContentPane().add(table);
 		table.setRowSelectionAllowed(false);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -89,13 +92,13 @@ public class BoardGui {
 		table.getColumnModel().getColumn(4).setResizable(false);
 		table.getColumnModel().getColumn(5).setResizable(false);
 		table.getColumnModel().getColumn(6).setResizable(false);
-		frame.addWindowListener(new WindowAdapter()
+		frmGewinnt.addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e)
 			{
 			MainMenu mainmenu = new MainMenu();
 			mainmenu.createmainmenu();
-			frame.dispose();
+			frmGewinnt.dispose();
 			}
 			});
 	}

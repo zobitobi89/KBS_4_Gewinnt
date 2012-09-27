@@ -12,10 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import java.awt.Label;
 
 public class MainMenu {
 
-	private JFrame frame;
+	private JFrame frmGewinnt;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
@@ -28,7 +30,7 @@ public class MainMenu {
 			public void run() {
 				try {
 					MainMenu window = new MainMenu();
-					window.frame.setVisible(true);
+					window.frmGewinnt.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,26 +49,28 @@ public class MainMenu {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 300, 220);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmGewinnt = new JFrame();
+		frmGewinnt.setTitle("4 Gewinnt - Menu");
+		frmGewinnt.setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/resources/logo.png")));
+		frmGewinnt.setResizable(false);
+		frmGewinnt.setBounds(100, 100, 300, 220);
+		frmGewinnt.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGewinnt.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Play");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				BoardGui boardgui = new BoardGui();
 				boardgui.createboardgui();
-				frame.dispose();
+				frmGewinnt.dispose();
 			}
 		});
 		btnNewButton.setBounds(185, 148, 89, 23);
-		frame.getContentPane().add(btnNewButton);
+		frmGewinnt.getContentPane().add(btnNewButton);
 		
 		JLabel lblPlayer = new JLabel("Player 1");
 		lblPlayer.setBounds(30, 30, 57, 20);
-		frame.getContentPane().add(lblPlayer);
+		frmGewinnt.getContentPane().add(lblPlayer);
 		lblPlayer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPlayer.setBackground(Color.WHITE);
 		
@@ -74,45 +78,69 @@ public class MainMenu {
 		lblPlayer_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPlayer_1.setBackground(Color.WHITE);
 		lblPlayer_1.setBounds(30, 70, 57, 20);
-		frame.getContentPane().add(lblPlayer_1);
+		frmGewinnt.getContentPane().add(lblPlayer_1);
 		
 		JLabel lblFieldsize = new JLabel("Fieldsize");
 		lblFieldsize.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblFieldsize.setBackground(Color.WHITE);
 		lblFieldsize.setBounds(30, 110, 59, 20);
-		frame.getContentPane().add(lblFieldsize);
+		frmGewinnt.getContentPane().add(lblFieldsize);
 		
 		JCheckBox chckbxKi = new JCheckBox("KI");
 		buttonGroup_1.add(chckbxKi);
 		chckbxKi.setBounds(217, 31, 49, 23);
-		frame.getContentPane().add(chckbxKi);
+		frmGewinnt.getContentPane().add(chckbxKi);
 		
 		JCheckBox checkBox = new JCheckBox("KI");
 		checkBox.setSelected(true);
 		buttonGroup_2.add(checkBox);
 		checkBox.setBounds(217, 71, 49, 23);
-		frame.getContentPane().add(checkBox);
+		frmGewinnt.getContentPane().add(checkBox);
 		
 		JCheckBox chckbxHuman = new JCheckBox("Human");
 		chckbxHuman.setSelected(true);
 		buttonGroup_1.add(chckbxHuman);
 		chckbxHuman.setBounds(145, 31, 70, 23);
-		frame.getContentPane().add(chckbxHuman);
+		frmGewinnt.getContentPane().add(chckbxHuman);
 		
 		JCheckBox checkBox_1 = new JCheckBox("Human");
 		buttonGroup_2.add(checkBox_1);
 		checkBox_1.setBounds(145, 71, 70, 23);
-		frame.getContentPane().add(checkBox_1);
+		frmGewinnt.getContentPane().add(checkBox_1);
 		
 		JRadioButton rdbtnX = new JRadioButton("8 x 8");
 		buttonGroup.add(rdbtnX);
 		rdbtnX.setBounds(217, 111, 57, 23);
-		frame.getContentPane().add(rdbtnX);
+		frmGewinnt.getContentPane().add(rdbtnX);
 		
 		JRadioButton radioButton = new JRadioButton("7 x 6");
 		buttonGroup.add(radioButton);
 		radioButton.setSelected(true);
 		radioButton.setBounds(145, 111, 60, 23);
-		frame.getContentPane().add(radioButton);
+		frmGewinnt.getContentPane().add(radioButton);
+		
+		JButton btnAbout = new JButton("Rules");
+		btnAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RulesGui createrules = new RulesGui();
+				createrules.createrules();
+				frmGewinnt.dispose();
+			}
+		});
+		btnAbout.setBounds(30, 148, 89, 23);
+		frmGewinnt.getContentPane().add(btnAbout);
+		
+		JButton button = new JButton("?");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AboutGui createabout = new AboutGui();
+				createabout.createaboutgui();
+				frmGewinnt.dispose();
+			}
+		});
+		button.setSelectedIcon(null);
+		button.setIcon(null);
+		button.setBounds(245, 1, 49, 23);
+		frmGewinnt.getContentPane().add(button);
 	}
 }
