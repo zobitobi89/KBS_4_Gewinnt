@@ -1,15 +1,15 @@
 package com.dhbw.vier_gewinnt.gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JTextPane;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
 
 public class RulesGui {
 
@@ -42,10 +42,16 @@ public class RulesGui {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double s_width = screenSize.getWidth();
+		double s_height = screenSize.getHeight();
+		int left = (int) ((s_width - 450) / 2);
+		int top = (int) ((s_height - 300) / 2);
+		
 		frmGewinnt = new JFrame();
 		frmGewinnt.setIconImage(Toolkit.getDefaultToolkit().getImage(RulesGui.class.getResource("/resources/logo.png")));
 		frmGewinnt.setTitle("4 Gewinnt - Rules");
-		frmGewinnt.setBounds(100, 100, 450, 300);
+		frmGewinnt.setBounds(left, top, 450, 300);
 		frmGewinnt.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmGewinnt.getContentPane().setLayout(null);
 		
@@ -59,14 +65,14 @@ public class RulesGui {
 		frmGewinnt.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(RulesGui.class.getResource("/resources/reddot.png")));
-		lblNewLabel_2.setBounds(20, 153, 103, 83);
+		lblNewLabel_2.setIcon(new ImageIcon(RulesGui.class.getResource("/resources/Stein_rot(100).png")));
+		lblNewLabel_2.setBounds(20, 153, 100, 100);
 		frmGewinnt.getContentPane().add(lblNewLabel_2);
 		
 		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setIcon(new ImageIcon(RulesGui.class.getResource("/resources/yellowdot.png")));
-		label.setBounds(321, 153, 103, 82);
+		label.setIcon(new ImageIcon(RulesGui.class.getResource("/resources/Stein_gelb(100).png")));
+		label.setBounds(321, 153, 100, 100);
 		frmGewinnt.getContentPane().add(label);
 		frmGewinnt.addWindowListener(new WindowAdapter()
 		{

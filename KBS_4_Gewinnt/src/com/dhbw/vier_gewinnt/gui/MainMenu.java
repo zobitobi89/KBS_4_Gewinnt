@@ -1,8 +1,12 @@
 package com.dhbw.vier_gewinnt.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -10,10 +14,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-import java.awt.Label;
+
+import com.dhbw.vier_gewinnt.controller.Main;
 
 public class MainMenu {
 
@@ -49,11 +51,17 @@ public class MainMenu {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double s_width = screenSize.getWidth();
+		double s_height = screenSize.getHeight();
+		int left = (int) ((s_width - 300) / 2);
+		int top = (int) ((s_height - 220) / 2);
+		
 		frmGewinnt = new JFrame();
 		frmGewinnt.setTitle("4 Gewinnt - Menu");
 		frmGewinnt.setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/resources/logo.png")));
 		frmGewinnt.setResizable(false);
-		frmGewinnt.setBounds(100, 100, 300, 220);
+		frmGewinnt.setBounds(left, top, 300, 220);
 		frmGewinnt.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGewinnt.getContentPane().setLayout(null);
 		
@@ -62,6 +70,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent arg0) {
 				BoardGui boardgui = new BoardGui();
 				boardgui.createboardgui();
+				resetBoard();
 				frmGewinnt.dispose();
 			}
 		});
@@ -69,7 +78,7 @@ public class MainMenu {
 		frmGewinnt.getContentPane().add(btnNewButton);
 		
 		JLabel lblPlayer = new JLabel("Player 1");
-		lblPlayer.setBounds(30, 30, 57, 20);
+		lblPlayer.setBounds(30, 30, 75, 20);
 		frmGewinnt.getContentPane().add(lblPlayer);
 		lblPlayer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPlayer.setBackground(Color.WHITE);
@@ -77,13 +86,13 @@ public class MainMenu {
 		JLabel lblPlayer_1 = new JLabel("Player 2");
 		lblPlayer_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPlayer_1.setBackground(Color.WHITE);
-		lblPlayer_1.setBounds(30, 70, 57, 20);
+		lblPlayer_1.setBounds(30, 70, 75, 20);
 		frmGewinnt.getContentPane().add(lblPlayer_1);
 		
 		JLabel lblFieldsize = new JLabel("Fieldsize");
 		lblFieldsize.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblFieldsize.setBackground(Color.WHITE);
-		lblFieldsize.setBounds(30, 110, 59, 20);
+		lblFieldsize.setBounds(30, 110, 75, 20);
 		frmGewinnt.getContentPane().add(lblFieldsize);
 		
 		JCheckBox chckbxKi = new JCheckBox("KI");
@@ -142,5 +151,14 @@ public class MainMenu {
 		button.setIcon(null);
 		button.setBounds(245, 1, 49, 23);
 		frmGewinnt.getContentPane().add(button);
+	}
+
+	private void resetBoard() {
+		for(int i=0;i<7;i++)
+			for (int j=0;j<6;j++)
+				Main.board.setBoard(i,j,0);
+		Main.stone_r=0;
+		Main.stone_y=0;
+		Main.turn=0;
 	}
 }
