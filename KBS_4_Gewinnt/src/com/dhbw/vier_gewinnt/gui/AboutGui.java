@@ -70,6 +70,12 @@ public class AboutGui {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblNewLabel_1.setBounds(180, 218, 100, 44);
 		frmGewinnt.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lbl_background = new JLabel(new ImageIcon(BoardGui.class
+				.getResource("/resources/holz1.png")));
+		lbl_background.setBounds(0,0,700,800);
+		frmGewinnt.getContentPane().add(lbl_background);
+		
 		frmGewinnt.addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e)

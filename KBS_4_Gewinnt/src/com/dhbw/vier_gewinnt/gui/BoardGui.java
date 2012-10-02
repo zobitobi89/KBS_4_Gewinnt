@@ -96,7 +96,7 @@ public class BoardGui {
 		// ImageIcon icon=new ImageIcon(scaledImage);
 		// lbl_board.setIcon(icon);
 		lbl_board.setIcon(new ImageIcon(BoardGui.class
-				.getResource("/resources/viergewinnt_brett(525).png")));
+				.getResource("/resources/viergewinnt_brett_clean(525).png")));
 		lbl_board.setBounds(87, 175, 525, 509);
 		frmGewinnt.getContentPane().add(lbl_board);
 

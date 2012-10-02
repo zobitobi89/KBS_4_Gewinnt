@@ -74,6 +74,12 @@ public class RulesGui {
 		label.setIcon(new ImageIcon(RulesGui.class.getResource("/resources/Stein_gelb(100).png")));
 		label.setBounds(321, 153, 100, 100);
 		frmGewinnt.getContentPane().add(label);
+		
+		JLabel lbl_background = new JLabel(new ImageIcon(BoardGui.class
+				.getResource("/resources/holz1.png")));
+		lbl_background.setBounds(0,0,700,800);
+		frmGewinnt.getContentPane().add(lbl_background);
+		
 		frmGewinnt.addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e)

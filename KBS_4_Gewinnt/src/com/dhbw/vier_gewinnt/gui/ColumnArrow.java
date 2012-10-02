@@ -27,6 +27,30 @@ public class ColumnArrow extends JButton {
 			private void setStone(int column) {
 				int row = -1;
 				int top;
+				int balance=0;
+				switch (column){
+				case 0:
+					balance=0;
+					break;
+				case 1:
+					balance=1;
+					break;
+				case 2:
+					balance=1;
+					break;
+				case 3:
+					balance=2;
+					break;
+				case 4:
+					balance=2;
+					break;
+				case 5:
+					balance=0;
+					break;
+				case 6:
+					balance=0;
+					break;
+				}
 				CheckLines line_checker= new CheckLines();
 				for (int i = 0; i < 6; i++) {
 					if (Main.board.getValue(column, i) == 0) {
@@ -35,10 +59,10 @@ public class ColumnArrow extends JButton {
 					}
 				}
 				if (row != -1) {
-					top = 505 - 58 * row;
+					top = 505 - 58 * row+1;
 					if (Main.turn == 0) {
 						BoardGui.stones_red[Main.stone_r].setBounds(
-								118 + 68 * column, top, 45, 45);
+								118 + 68 * column+balance, top, 45, 45);
 						Main.board.setBoard(column, row, 1);
 						Main.stone_r++;
 						Main.turn = 1;
@@ -51,7 +75,7 @@ public class ColumnArrow extends JButton {
 							BoardGui.lbl_status.setText("It is Yellows Turn");
 					} else {
 						BoardGui.stones_yellow[Main.stone_y].setBounds(
-								118 + 68 * column, top, 45, 45);
+								118 + 68 * column+balance, top, 45, 45);
 						Main.board.setBoard(column, row, 2);
 						Main.stone_y++;
 						Main.turn = 0;
@@ -69,6 +93,7 @@ public class ColumnArrow extends JButton {
 			}
 		});
 		this.setContentAreaFilled(false);
+		this.setBorderPainted(false);
 		this.setBounds(115, 20, 50, 150);
 	}
 }
