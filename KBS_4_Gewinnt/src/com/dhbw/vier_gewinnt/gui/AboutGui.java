@@ -56,20 +56,20 @@ public class AboutGui {
 		frmGewinnt.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmGewinnt.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(AboutGui.class.getResource("/resources/4_Gewinnt Logo_3.png")));
-		lblNewLabel.setBounds(23, 11, 228, 172);
-		frmGewinnt.getContentPane().add(lblNewLabel);
+		JLabel lbl_logo = new JLabel("");
+		lbl_logo.setIcon(new ImageIcon(AboutGui.class.getResource("/resources/4_Gewinnt Logo_3.png")));
+		lbl_logo.setBounds(23, 11, 228, 172);
+		frmGewinnt.getContentPane().add(lbl_logo);
 		
-		JLabel lblVersion = new JLabel("<html>\r\n<body>\r\nVersion\r\n<br>\r\n0.1\r\n</body>\r\n</html>");
-		lblVersion.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblVersion.setBounds(10, 240, 50, 22);
-		frmGewinnt.getContentPane().add(lblVersion);
+		JLabel lbl_version = new JLabel("<html>\r\n<body>\r\nVersion\r\n<br>\r\n0.1\r\n</body>\r\n</html>");
+		lbl_version.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lbl_version.setBounds(10, 240, 50, 22);
+		frmGewinnt.getContentPane().add(lbl_version);
 		
-		JLabel lblNewLabel_1 = new JLabel("<html>\r\n<body>\r\n<b>Created by</b>\r\n<br>\r\n<span style=\"font-size:7px\">\r\nTobias Zogrotzky\r\n<br>\r\nPhilipp Goetze\r\n<br>\r\nSebastian Boehm\r\n</span>\r\n</body>\r\n</html>");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblNewLabel_1.setBounds(180, 218, 100, 44);
-		frmGewinnt.getContentPane().add(lblNewLabel_1);
+		JLabel lbl_createdby = new JLabel("<html>\r\n<body>\r\n<b>Created by</b>\r\n<br>\r\n<span style=\"font-size:7px\">\r\nTobias Zogrotzky\r\n<br>\r\nPhilipp Goetze\r\n<br>\r\nSebastian Boehm\r\n</span>\r\n</body>\r\n</html>");
+		lbl_createdby.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lbl_createdby.setBounds(180, 218, 100, 44);
+		frmGewinnt.getContentPane().add(lbl_createdby);
 		
 		JLabel lbl_background = new JLabel(new ImageIcon(BoardGui.class
 				.getResource("/resources/holz1.png")));

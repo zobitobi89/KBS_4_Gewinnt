@@ -27,31 +27,31 @@ public class ColumnArrow extends JButton {
 			private void setStone(int column) {
 				int row = -1;
 				int top;
-				int balance=0;
-				switch (column){
+				int balance = 0;
+				switch (column) {
 				case 0:
-					balance=0;
+					balance = 0;
 					break;
 				case 1:
-					balance=1;
+					balance = 1;
 					break;
 				case 2:
-					balance=1;
+					balance = 1;
 					break;
 				case 3:
-					balance=2;
+					balance = 2;
 					break;
 				case 4:
-					balance=2;
+					balance = 2;
 					break;
 				case 5:
-					balance=0;
+					balance = 0;
 					break;
 				case 6:
-					balance=0;
+					balance = 0;
 					break;
 				}
-				CheckLines line_checker= new CheckLines();
+				CheckLines line_checker = new CheckLines();
 				for (int i = 0; i < 6; i++) {
 					if (Main.board.getValue(column, i) == 0) {
 						row = i;
@@ -59,36 +59,34 @@ public class ColumnArrow extends JButton {
 					}
 				}
 				if (row != -1) {
-					top = 505 - 58 * row+1;
+					top = 505 - 58 * row + 1;
 					if (Main.turn == 0) {
-						BoardGui.stones_red[Main.stone_r].setBounds(
-								118 + 68 * column+balance, top, 45, 45);
+						BoardGui.stones_red[Main.stone_r].setBounds(118 + 68
+								* column + balance, top, 45, 45);
 						Main.board.setBoard(column, row, 1);
 						Main.stone_r++;
 						Main.turn = 1;
-						if (line_checker.checkLines(column, row, 1)){
+						if (line_checker.checkLines(column, row, 1)) {
 							BoardGui.lbl_status.setText("Red Wins");
-							for(int j=0;j<7;j++)
+							for (int j = 0; j < 7; j++)
 								BoardGui.arrows[j].setEnabled(false);
-						}
-						else
+						} else
 							BoardGui.lbl_status.setText("It is Yellows Turn");
 					} else {
-						BoardGui.stones_yellow[Main.stone_y].setBounds(
-								118 + 68 * column+balance, top, 45, 45);
+						BoardGui.stones_yellow[Main.stone_y].setBounds(118 + 68
+								* column + balance, top, 45, 45);
 						Main.board.setBoard(column, row, 2);
 						Main.stone_y++;
 						Main.turn = 0;
-						if (line_checker.checkLines(column, row, 2)){
+						if (line_checker.checkLines(column, row, 2)) {
 							BoardGui.lbl_status.setText("Yellow Wins");
-							for(int j=0;j<7;j++)
+							for (int j = 0; j < 7; j++)
 								BoardGui.arrows[j].setEnabled(false);
-						}
-						else
+						} else
 							BoardGui.lbl_status.setText("It is Reds Turn");
 					}
-				if (Main.stone_r==21 && Main.stone_y==21)
-					BoardGui.lbl_status.setText("Draw");
+					if (Main.stone_r == 21 && Main.stone_y == 21)
+						BoardGui.lbl_status.setText("Draw");
 				}
 			}
 		});
