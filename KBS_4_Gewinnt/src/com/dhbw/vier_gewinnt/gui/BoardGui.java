@@ -62,31 +62,7 @@ public class BoardGui {
 		frmGewinnt.setBounds(left, top, 700, 800);
 		frmGewinnt.getContentPane().setLayout(null);
 
-		/*
-		 * table = new JTable(); table.setBorder(new MatteBorder(1, 1, 1, 1,
-		 * (Color) new Color(0, 0, 0))); table.setBounds(10, 11, 424, 210);
-		 * table.setRowHeight(30); frmGewinnt.getContentPane().add(table);
-		 * table.setRowSelectionAllowed(false); table.setModel(new
-		 * DefaultTableModel( new Object[][] { {"", null, null, null, null,
-		 * null, null}, {null, null, null, null, null, null, null}, {null, "",
-		 * null, null, null, null, ""}, {null, null, null, "", "", "", null},
-		 * {null, null, null, null, null, null, null}, {null, null, "", null,
-		 * null, null, null}, {null, null, null, null, null, null, null}, }, new
-		 * String[] { "", "New column", "New column", "New column",
-		 * "New column", "New column", "New column" } ) {
-		 * 
-		 * private static final long serialVersionUID = 1L; boolean[]
-		 * columnEditables = new boolean[] { false, false, false, false, false,
-		 * false, false }; public boolean isCellEditable(int row, int column) {
-		 * return columnEditables[column]; } });
-		 * table.getColumnModel().getColumn(0).setResizable(false);
-		 * table.getColumnModel().getColumn(1).setResizable(false);
-		 * table.getColumnModel().getColumn(2).setResizable(false);
-		 * table.getColumnModel().getColumn(3).setResizable(false);
-		 * table.getColumnModel().getColumn(4).setResizable(false);
-		 * table.getColumnModel().getColumn(5).setResizable(false);
-		 * table.getColumnModel().getColumn(6).setResizable(false);
-		 */
+		
 
 		JLabel lbl_board = new JLabel("");
 		// Image image_board =

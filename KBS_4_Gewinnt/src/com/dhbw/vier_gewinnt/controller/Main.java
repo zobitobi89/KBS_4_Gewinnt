@@ -17,8 +17,9 @@ public class Main {
 		mainmenu.createmainmenu();
 		board= new Board();
 		board.createBoard(7, 6);
-		stone_y=0;
-		stone_r=0;
+		//TODO: Boardgröße variabel (8x8)
+		stone_y=0;//Anzahl gelegter Steine fuer Gelb
+		stone_r=0;//Anzahl Rot
 		turn=0; //0 - red, 1 - yellow
 		
 		

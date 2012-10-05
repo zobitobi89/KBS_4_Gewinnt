@@ -4,11 +4,16 @@ public class Board {
 	private int width;
 	private int hight;
 	private int [][] board;
-
-	public void createBoard(int width, int hight){
+	
+/**
+ * creates the play-board
+ * @param width
+ * @param hight
+ */
+	public void createBoard(int width, int hight){ 
 		this.width=width;
 		this.hight=hight;
-		board = new int [width][hight];
+		board = new int [width][hight]; //array mit breite und höhe
 	}
 
 	public int [][] getBoard() {
@@ -19,7 +24,7 @@ public class Board {
 		this.board = board;
 	}
 	
-	public void setBoard(int width, int hight, int value) {
+	public void setBoard(int width, int hight, int value) { //Zugriff auf einzelne Felder, Value=Farbe (1=rot; 2=geld; 0=nichts)
 		this.board[width][hight]=value;
 	}
 
