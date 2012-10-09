@@ -178,17 +178,32 @@ public class MainMenu {
 	}
 
 	private void checkSelection() {
-		if (cbx_human1.isSelected() && cbx_human2.isSelected()
-				&& rbtn_7x6.isSelected()) {
+		if (cbx_human1.isSelected() && cbx_human2.isSelected()) {
+			Main.ki1 = false;
+			Main.ki2 = false;
 			BoardGui boardgui = new BoardGui();
 			boardgui.createboardgui();
 			resetBoard();
 			frmGewinnt.dispose();
+		} else if (cbx_ki1.isSelected() && cbx_human2.isSelected()) {
+			Main.ki1 = true;
+			Main.ki2 = false;
+		} else if (cbx_human1.isSelected() && cbx_ki2.isSelected()) {
+			Main.ki1 = false;
+			Main.ki2 = true;
+		} else if (cbx_ki1.isSelected() && cbx_ki2.isSelected()) {
+			Main.ki1 = true;
+			Main.ki2 = true;
 		}
-		else
-			JOptionPane.showMessageDialog(null, "This Option is not yet implemented!");
-		//TODO: Add other selections
 
+		if (rbtn_7x6.isSelected()) {
+			BoardGui boardgui = new BoardGui();
+			boardgui.createboardgui();
+			resetBoard();
+			frmGewinnt.dispose();
+		} else
+			JOptionPane.showMessageDialog(null,
+					"This Option is not yet implemented!");
 	}
 
 	private void resetBoard() {
@@ -198,5 +213,6 @@ public class MainMenu {
 		Main.stone_r = 0;
 		Main.stone_y = 0;
 		Main.turn = 0;
+		Main.gameover=false;
 	}
 }

@@ -11,13 +11,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import com.dhbw.vier_gewinnt.controller.Main;
+
 public class BoardGui {
 
 	private JFrame frmGewinnt;
 	public static StoneYellow[] stones_yellow;
-	public static StoneRed[] stones_red; 
+	public static StoneRed[] stones_red;
 	public static JLabel lbl_status;
 	public static ColumnArrow[] arrows;
+
 	// private JTable table;
 
 	/**
@@ -62,8 +65,6 @@ public class BoardGui {
 		frmGewinnt.setBounds(left, top, 700, 800);
 		frmGewinnt.getContentPane().setLayout(null);
 
-		
-
 		JLabel lbl_board = new JLabel("");
 		// Image image_board =
 		// Toolkit.getDefaultToolkit().getImage("/resources/viergewinnt_brett.png");
@@ -96,15 +97,15 @@ public class BoardGui {
 			arrows[i].setBounds(115 + i * 68, 20, 50, 150);
 			frmGewinnt.getContentPane().add(arrows[i]);
 		}
-		
-		lbl_status = new JLabel("It is Reds Turn",JLabel.CENTER);
+
+		lbl_status = new JLabel("It is Reds Turn", JLabel.CENTER);
 		lbl_status.setFont(new Font("Serif", Font.BOLD, 48));
-		lbl_status.setBounds(87,700,525,40);
+		lbl_status.setBounds(87, 700, 525, 40);
 		frmGewinnt.getContentPane().add(lbl_status);
-		
-		JLabel lbl_background = new JLabel(new ImageIcon(BoardGui.class
-				.getResource("/resources/holz1.png")));
-		lbl_background.setBounds(0,0,700,800);
+
+		JLabel lbl_background = new JLabel(new ImageIcon(
+				BoardGui.class.getResource("/resources/holz1.png")));
+		lbl_background.setBounds(0, 0, 700, 800);
 		frmGewinnt.getContentPane().add(lbl_background);
 
 		frmGewinnt.addWindowListener(new WindowAdapter() {
@@ -114,5 +115,9 @@ public class BoardGui {
 				frmGewinnt.dispose();
 			}
 		});
+		if (Main.ki1 && Main.turn==0)
+			Main.task.kiTurn();
+		if (Main.ki2 && Main.turn==1)
+			Main.task.kiTurn();
 	}
 }
