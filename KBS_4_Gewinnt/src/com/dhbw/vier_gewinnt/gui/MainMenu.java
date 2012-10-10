@@ -208,7 +208,7 @@ public class MainMenu {
 				Main.board.setBoard(i, j, 0);
 		Main.stone_r = 0;
 		Main.stone_y = 0;
-		Main.turn = 0;
+		Main.board.setTurn(1);
 		Main.gameover=false;
 	}
 }

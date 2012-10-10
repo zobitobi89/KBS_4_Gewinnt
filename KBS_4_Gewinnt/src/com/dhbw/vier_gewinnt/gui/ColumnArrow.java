@@ -24,9 +24,9 @@ public class ColumnArrow extends JButton {
 			public void actionPerformed(ActionEvent arg0) {
 				setStone(column);
 				if (!Main.gameover) {
-					if (Main.ki1 && Main.turn == 0)
+					if (Main.ki1 && Main.board.getTurn() == 1)
 						Main.task.kiTurn();
-					if (Main.ki2 && Main.turn == 1)
+					if (Main.ki2 && Main.board.getTurn() == 2)
 						Main.task.kiTurn();
 				}
 			}
@@ -74,12 +74,12 @@ public class ColumnArrow extends JButton {
 		}
 		if (row != -1) {
 			top = 505 - 58 * row + 1;
-			if (Main.turn == 0) {
+			if (Main.board.getTurn() == 1) {
 				BoardGui.stones_red[Main.stone_r].setBounds(118 + 68 * column
 						+ balance, top, 45, 45);
 				Main.board.setBoard(column, row, 1);
 				Main.stone_r++;
-				Main.turn = 1;
+				Main.board.setTurn(2);
 				if (line_checker.checkLines(column, row, 1)) {
 					BoardGui.lbl_status.setText("Red Wins");
 					Main.gameover = true;
@@ -105,7 +105,7 @@ public class ColumnArrow extends JButton {
 						* column + balance, top, 45, 45);
 				Main.board.setBoard(column, row, 2);
 				Main.stone_y++;
-				Main.turn = 0;
+				Main.board.setTurn(1);
 				if (line_checker.checkLines(column, row, 2)) {
 					BoardGui.lbl_status.setText("Yellow Wins");
 					Main.gameover = true;

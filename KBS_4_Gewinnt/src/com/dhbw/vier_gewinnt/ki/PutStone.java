@@ -1,5 +1,8 @@
 package com.dhbw.vier_gewinnt.ki;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import com.dhbw.vier_gewinnt.controller.Main;
 import com.dhbw.vier_gewinnt.model.Board;
 
@@ -36,30 +39,49 @@ public class PutStone {
 		int row = 0;
 		for (int i = 0; i < options.length; i++) {
 			if (options[i] == true) {
-				temp_board.setBoard(Main.board.getBoard());
+				temp_board=Main.board.getBoard();
 				for (int j = 0; j < 6; j++) {
 					if (temp_board.getValue(i, j) == 0) {
 						row = j;
 						break;
 					}
 				}
-				temp_board.setBoard(i, row, Main.turn + 1);
-				value[i] = abmax(6, NEG_INFINITY, POS_INFINITY, temp_board);
+				temp_board.setBoard(i, row, temp_board.getTurn());
+				temp_board.switchTurn();
+				value[i] = abmax(8, NEG_INFINITY, POS_INFINITY, temp_board);
 			} else {
 					value[i] = NEG_INFINITY;
 			}
 		}
 		int max = NEG_INFINITY;
-		int n = 0;
+		//int n = 0;
+		ArrayList<Integer> rand = new ArrayList<Integer>();
 		for (int i = 0; i < 7; i++) {
-			if (value[i] >= max) {
+			if (value[i] > max) {
 				max = value[i];
-				// TODO: Bei Gleichheit Zufall
-				n = i;
-				System.out.println("n= " + n + ", max= " + max);
+				//n = i;
+				rand.clear();
+				rand.add(i);
+				/*---DEBUG---Start---*/
+				System.out.println("WAHL: Spalte= " + i + ", max= " + max+ ", Turn: "+(Main.board.getTurn()==1?"rot":"gelb"));
+				/*---DEBUG---End---*/
+			}
+			else if (value[i]==max){
+				rand.add(i);
+				/*---DEBUG---Start---*/
+				System.out.println("WAHL: Spalte= " + i + ", max= " + max+ ", Turn: "+(Main.board.getTurn()==1?"rot":"gelb"));
+				/*---DEBUG---End---*/
 			}
 		}
-		return n;
+//		if (rand.isEmpty()) 
+//			return n;
+//		else {
+			int r= (int)Math.round(Math.random())*(rand.size()-1);
+			/*---DEBUG---Start---*/
+			System.out.println("Endgültig: Spalte= " + rand.get(r) + ", max= " + max+ ", Turn: "+(Main.board.getTurn()==1?"rot":"gelb"));
+			/*---DEBUG---End---*/
+			return rand.get(r);
+//		}
 	}
 
 	/**
@@ -92,21 +114,22 @@ public class PutStone {
 
 	private static int abmax(int n, int a, int b, Board temp_board) {
 		if (n == 0)
-			return evaluate(temp_board); // TODO: Change
+			return evaluate(temp_board);
 		Board tmp_board = new Board();
 		tmp_board.createBoard(Main.board.getWidth(), Main.board.getHeight());
 		int row = 0;
 		for (int i = 0; i < tmp_board.getWidth(); i++) {
 			//
 			if (tmp_board.getValue(i, 5) == 0) {
-				tmp_board.setBoard(temp_board.getBoard());
+				tmp_board=temp_board.getBoard();
 				for (int j = 0; j < tmp_board.getHeight(); j++) {
 					if (temp_board.getValue(i, j) == 0) {
 						row = j;
 						break;
 					}
 				}
-				tmp_board.setBoard(i, row, Main.turn + 1);
+				tmp_board.setBoard(i, row, tmp_board.getTurn());
+				tmp_board.switchTurn();
 				//
 				int w = abmin(n - 1, a, b, tmp_board);
 				if (w >= b)
@@ -120,21 +143,22 @@ public class PutStone {
 
 	private static int abmin(int n, int a, int b, Board temp_board) {
 		if (n == 0)
-			return evaluate(temp_board); // TODO: Change
+			return evaluate(temp_board);
 		Board tmp_board = new Board();
 		tmp_board.createBoard(Main.board.getWidth(), Main.board.getHeight());
 		int row = 0;
 		for (int i = 0; i < tmp_board.getWidth(); i++) {
 			//
 			if (tmp_board.getValue(i, 5) == 0) {
-				tmp_board.setBoard(temp_board.getBoard());
+				tmp_board=temp_board.getBoard();
 				for (int j = 0; j < tmp_board.getHeight(); j++) {
 					if (tmp_board.getValue(i, j) == 0) {
 						row = j;
 						break;
 					}
 				}
-				tmp_board.setBoard(i, row, Main.turn + 1);
+				tmp_board.setBoard(i, row, tmp_board.getTurn());
+				tmp_board.switchTurn();
 				//
 				int w = abmax(n - 1, a, b, tmp_board);
 				if (w <= a)

@@ -136,9 +136,7 @@ public class BoardGui {
 			}
 		});
 
-		if (Main.ki1 && Main.turn == 0)
+		if (Main.ki1 && Main.board.getTurn() == 1)
 			Main.task.kiTurn();
-		// if (Main.ki2 && Main.turn==1)
-		// Main.task.kiTurn();
 	}
 }
