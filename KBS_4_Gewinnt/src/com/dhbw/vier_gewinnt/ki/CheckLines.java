@@ -55,7 +55,7 @@ public class CheckLines {
 	public int countStones(int x, int y, int xdir, int ydir, int player) {
 
 		if (x >= 0 && x < Main.board.getWidth() && y >= 0
-				&& y < Main.board.getHight()) {
+				&& y < Main.board.getHeight()) {
 			if (Main.board.getValue(x, y) == player)
 				return countStones(x + xdir, y + ydir, xdir, ydir, player) + 1;
 		}
@@ -65,7 +65,7 @@ public class CheckLines {
 
 	public void noticeFourStones(int x, int y, int xdir, int ydir, int player) {
 		if (x >= 0 && x < Main.board.getWidth() && y >= 0
-				&& y < Main.board.getHight()) {
+				&& y < Main.board.getHeight()) {
 			if (Main.board.getValue(x, y) == player) {
 				tmp_board.setBoard(x, y, 1);
 				noticeFourStones(x + xdir, y + ydir, xdir, ydir, player);

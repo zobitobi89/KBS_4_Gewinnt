@@ -112,12 +112,19 @@ public class BoardGui {
 			public void windowClosing(WindowEvent e) {
 				MainMenu mainmenu = new MainMenu();
 				mainmenu.createmainmenu();
-				frmGewinnt.dispose();
+				//Main.task.interrupted();
+				Main.ki1=false;
+				Main.ki2=false;
+				frmGewinnt.setVisible(false); 
+				frmGewinnt.dispose(); 
+				frmGewinnt = null; 
+
 			}
 		});
+		
 		if (Main.ki1 && Main.turn==0)
 			Main.task.kiTurn();
-		if (Main.ki2 && Main.turn==1)
-			Main.task.kiTurn();
+//		if (Main.ki2 && Main.turn==1)
+//			Main.task.kiTurn();
 	}
 }

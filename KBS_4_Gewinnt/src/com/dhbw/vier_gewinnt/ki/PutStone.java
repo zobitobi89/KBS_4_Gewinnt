@@ -18,22 +18,61 @@ public class PutStone {
 	 */
 	public static int putStone() {
 		int pos = 0;
-		pos = randomKI();
+		// pos = randomKI();
+		pos = alphabetaKI();
 		// TODO: Add other KIs
 		return pos;
 	}
-	
+
 	/**
 	 * 
 	 * @return
 	 */
-	private static boolean[] calcOptions() {
+	private static int alphabetaKI() {
+		boolean[] options = calcOptions(Main.board);
+		int[] value = new int[7];
+		Board temp_board = new Board();
+		temp_board.createBoard(Main.board.getWidth(), Main.board.getHeight());
+		int row = 0;
+		for (int i = 0; i < options.length; i++) {
+			if (options[i] == true) {
+				temp_board.setBoard(Main.board.getBoard());
+				for (int j = 0; j < 6; j++) {
+					if (temp_board.getValue(i, j) == 0) {
+						row = j;
+						break;
+					}
+				}
+				temp_board.setBoard(i, row, Main.turn + 1);
+				value[i] = abmax(6, NEG_INFINITY, POS_INFINITY, temp_board);
+			} else {
+					value[i] = NEG_INFINITY;
+			}
+		}
+		int max = NEG_INFINITY;
+		int n = 0;
+		for (int i = 0; i < 7; i++) {
+			if (value[i] >= max) {
+				max = value[i];
+				// TODO: Bei Gleichheit Zufall
+				n = i;
+				System.out.println("n= " + n + ", max= " + max);
+			}
+		}
+		return n;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	private static boolean[] calcOptions(Board cboard) {
 		boolean[] options = new boolean[7];
 		for (int j = 0; j < 7; j++) {
-				if (Main.board.getValue(j, 5) == 0)
-					options[j]=true;				
-				else
-					options[j]=false;				
+			if (cboard.getValue(j, 5) == 0)
+				options[j] = true;
+			else
+				options[j] = false;
 		}
 		return options;
 	}
@@ -44,40 +83,70 @@ public class PutStone {
 	 */
 	private static int randomKI() {
 		int random;
-		boolean[] options = calcOptions();
-		do{
+		boolean[] options = calcOptions(Main.board);
+		do {
 			random = (int) Math.round(Math.random() * 6);
-		}while (options[random]==false);
+		} while (options[random] == false);
 		return random;
 	}
 
-	private int abmax(int n, int a, int b) {
+	private static int abmax(int n, int a, int b, Board temp_board) {
 		if (n == 0)
-			return evaluate(Main.board); // TODO: Change
-		for (int i = 1; i <= n; i++) {
-			int w = abmin(n - 1, a, b);
-			if (w >= b)
-				return b;
-			if (w > a)
-				a = w;
+			return evaluate(temp_board); // TODO: Change
+		Board tmp_board = new Board();
+		tmp_board.createBoard(Main.board.getWidth(), Main.board.getHeight());
+		int row = 0;
+		for (int i = 0; i < tmp_board.getWidth(); i++) {
+			//
+			if (tmp_board.getValue(i, 5) == 0) {
+				tmp_board.setBoard(temp_board.getBoard());
+				for (int j = 0; j < tmp_board.getHeight(); j++) {
+					if (temp_board.getValue(i, j) == 0) {
+						row = j;
+						break;
+					}
+				}
+				tmp_board.setBoard(i, row, Main.turn + 1);
+				//
+				int w = abmin(n - 1, a, b, tmp_board);
+				if (w >= b)
+					return b;
+				if (w > a)
+					a = w;
+			}
 		}
 		return a;
 	}
 
-	private int abmin(int n, int a, int b) {
+	private static int abmin(int n, int a, int b, Board temp_board) {
 		if (n == 0)
-			return evaluate(Main.board); // TODO: Change
-		for (int i = 1; i <= n; i++) {
-			int w = abmax(n - 1, a, b);
-			if (w <= a)
-				return a;
-			if (w < b)
-				b = w;
+			return evaluate(temp_board); // TODO: Change
+		Board tmp_board = new Board();
+		tmp_board.createBoard(Main.board.getWidth(), Main.board.getHeight());
+		int row = 0;
+		for (int i = 0; i < tmp_board.getWidth(); i++) {
+			//
+			if (tmp_board.getValue(i, 5) == 0) {
+				tmp_board.setBoard(temp_board.getBoard());
+				for (int j = 0; j < tmp_board.getHeight(); j++) {
+					if (tmp_board.getValue(i, j) == 0) {
+						row = j;
+						break;
+					}
+				}
+				tmp_board.setBoard(i, row, Main.turn + 1);
+				//
+				int w = abmax(n - 1, a, b, tmp_board);
+				if (w <= a)
+					return a;
+				if (w < b)
+					b = w;
+			}
 		}
 		return b;
 	}
 
-	private int evaluate(Board tmp_board) {
+	private static int evaluate(Board tmp_board) {
 		Board board = tmp_board;
 		int min2er = 0;
 		int max2er = 0;
@@ -85,9 +154,9 @@ public class PutStone {
 		int max3er = 0;
 
 		for (int x = 0; x < board.getWidth(); x++) {
-			for (int y = 0; y < board.getHight(); y++) {
+			for (int y = 0; y < board.getHeight(); y++) {
 				// Noch 4 Chips nach oben moeglich?
-				if (board.getHight() - y >= 4) {
+				if (board.getHeight() - y >= 4) {
 					// 4 gleiche Chips?
 					if (isRow(board, 1, x, y, 0, 1) == 4)
 						return POS_INFINITY; // gewonnen
@@ -105,7 +174,7 @@ public class PutStone {
 						min2er++;
 				}
 				// Noch 4 Chips nach rechts oben moeglich?
-				if ((board.getHight() - y >= 4) && (board.getWidth() - x >= 4)) {
+				if ((board.getHeight() - y >= 4) && (board.getWidth() - x >= 4)) {
 					// 4 gleiche Chips nach rechts oben?
 					if (isRow(board, 1, x, y, 1, 1) == 4)
 						return POS_INFINITY; // gewonnen

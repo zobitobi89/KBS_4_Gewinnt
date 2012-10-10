@@ -83,7 +83,7 @@ public class ColumnArrow extends JButton {
 				if (line_checker.checkLines(column, row, 1)) {
 					BoardGui.lbl_status.setText("Red Wins");
 					Main.gameover = true;
-					for(int r= Main.board.getHight()-1;r>=0;r--){
+					for(int r= Main.board.getHeight()-1;r>=0;r--){
 						for(int c=0;c<Main.board.getWidth();c++){
 							System.out.print(CheckLines.tmp_board.getValue(c, r));
 						}

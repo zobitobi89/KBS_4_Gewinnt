@@ -181,10 +181,6 @@ public class MainMenu {
 		if (cbx_human1.isSelected() && cbx_human2.isSelected()) {
 			Main.ki1 = false;
 			Main.ki2 = false;
-			BoardGui boardgui = new BoardGui();
-			boardgui.createboardgui();
-			resetBoard();
-			frmGewinnt.dispose();
 		} else if (cbx_ki1.isSelected() && cbx_human2.isSelected()) {
 			Main.ki1 = true;
 			Main.ki2 = false;
