@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -80,25 +78,18 @@ public class BoardGui {
 				.getResource("/resources/viergewinnt_brett_clean(525).png")));
 		lbl_board.setBounds(87, 175, 525, 509);
 		frmGewinnt.getContentPane().add(lbl_board);
-		
-		
-		JButton bt_backtomenu = new JButton("Menu");
-		bt_backtomenu.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				MainMenu mainmenu = new MainMenu();
-				mainmenu.createmainmenu();
-				
-				frmGewinnt.setVisible(false); 
-				frmGewinnt.dispose(); 
-				frmGewinnt = null; 
-			}
-			
-		});
+		JButton bt_backtomenu = new JButton("Menu");
 		bt_backtomenu.setBounds(630, 50, 60, 30);
 		frmGewinnt.getContentPane().add(bt_backtomenu);
+
+		stones_win = new StoneWin[7];
+		for (int i = 0; i < stones_win.length; i++) {
+			stones_win[i] = new StoneWin();
+			stones_win[i].setBounds(30, 600 - 20 * i, 45, 45);
+			frmGewinnt.getContentPane().add(stones_win[i]);
+			stones_win[i].setVisible(false);
+		}
 
 		stones_yellow = new StoneYellow[21];
 		for (int i = 0; i < stones_yellow.length; i++) {
@@ -112,13 +103,6 @@ public class BoardGui {
 			stones_red[i] = new StoneRed();
 			stones_red[i].setBounds(30, 600 - 20 * i, 45, 45);
 			frmGewinnt.getContentPane().add(stones_red[i]);
-		}
-		
-		stones_win = new StoneWin[7];
-		for (int i = 0; i < stones_win.length; i++) {
-			stones_win[i] = new StoneWin();
-			stones_win[i].setBounds(30, 600 - 20 * i, 45, 45);
-			frmGewinnt.getContentPane().add(stones_win[i]);
 		}
 
 		arrows = new ColumnArrow[7];
@@ -142,19 +126,19 @@ public class BoardGui {
 			public void windowClosing(WindowEvent e) {
 				MainMenu mainmenu = new MainMenu();
 				mainmenu.createmainmenu();
-				//Main.task.interrupted();
-				Main.ki1=false;
-				Main.ki2=false;
-				frmGewinnt.setVisible(false); 
-				frmGewinnt.dispose(); 
-				frmGewinnt = null; 
+				// Main.task.interrupted();
+				Main.ki1 = false;
+				Main.ki2 = false;
+				frmGewinnt.setVisible(false);
+				frmGewinnt.dispose();
+				frmGewinnt = null;
 
 			}
 		});
-		
-		if (Main.ki1 && Main.turn==0)
+
+		if (Main.ki1 && Main.turn == 0)
 			Main.task.kiTurn();
-//		if (Main.ki2 && Main.turn==1)
-//			Main.task.kiTurn();
+		// if (Main.ki2 && Main.turn==1)
+		// Main.task.kiTurn();
 	}
 }

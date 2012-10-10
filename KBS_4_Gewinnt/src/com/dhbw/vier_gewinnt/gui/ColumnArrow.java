@@ -12,8 +12,8 @@ import com.dhbw.vier_gewinnt.ki.CheckLines;
 public class ColumnArrow extends JButton {
 
 	/**
-	 * 
-	 */
+* 
+*/
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,11 +23,11 @@ public class ColumnArrow extends JButton {
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setStone(column);
-				if (!Main.gameover){
-				if (Main.ki1 && Main.turn == 0)
-					Main.task.kiTurn();
-				if (Main.ki2 && Main.turn == 1)
-					Main.task.kiTurn();
+				if (!Main.gameover) {
+					if (Main.ki1 && Main.turn == 0)
+						Main.task.kiTurn();
+					if (Main.ki2 && Main.turn == 1)
+						Main.task.kiTurn();
 				}
 			}
 		});
@@ -83,9 +83,18 @@ public class ColumnArrow extends JButton {
 				if (line_checker.checkLines(column, row, 1)) {
 					BoardGui.lbl_status.setText("Red Wins");
 					Main.gameover = true;
-					for(int r= Main.board.getHeight()-1;r>=0;r--){
-						for(int c=0;c<Main.board.getWidth();c++){
-							System.out.print(CheckLines.tmp_board.getValue(c, r));
+					int z = 0;
+					for (int r = Main.board.getHeight() - 1; r >= 0; r--) {
+						for (int c = 0; c < Main.board.getWidth(); c++) {
+
+							// System.out.print(CheckLines.tmp_board.getValue(c,
+							// r));
+							if (CheckLines.tmp_board.getValue(c, r) == 1) {
+								BoardGui.stones_win[z].setBounds(118 + 68 * c,
+										505 - 58 * r + 1, 45, 45);
+								BoardGui.stones_win[z].setVisible(true);
+								z++;
+							}
 						}
 						System.out.println();
 					}
@@ -108,11 +117,11 @@ public class ColumnArrow extends JButton {
 				Main.gameover = true;
 			}
 		}
-//		try {
-//			Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// Thread.sleep(500);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
 		if (!Main.gameover)
 			for (int j = 0; j < 7; j++)
 				BoardGui.arrows[j].setEnabled(true);
