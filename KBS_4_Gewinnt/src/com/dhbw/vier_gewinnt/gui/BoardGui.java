@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -18,6 +19,7 @@ public class BoardGui {
 	private JFrame frmGewinnt;
 	public static StoneYellow[] stones_yellow;
 	public static StoneRed[] stones_red;
+	public static StoneWin[] stones_win;
 	public static JLabel lbl_status;
 	public static ColumnArrow[] arrows;
 
@@ -76,6 +78,10 @@ public class BoardGui {
 				.getResource("/resources/viergewinnt_brett_clean(525).png")));
 		lbl_board.setBounds(87, 175, 525, 509);
 		frmGewinnt.getContentPane().add(lbl_board);
+		
+		JButton bt_backtomenu = new JButton("Menu");
+		bt_backtomenu.setBounds(630, 50, 60, 30);
+		frmGewinnt.getContentPane().add(bt_backtomenu);
 
 		stones_yellow = new StoneYellow[21];
 		for (int i = 0; i < stones_yellow.length; i++) {
@@ -89,6 +95,13 @@ public class BoardGui {
 			stones_red[i] = new StoneRed();
 			stones_red[i].setBounds(30, 600 - 20 * i, 45, 45);
 			frmGewinnt.getContentPane().add(stones_red[i]);
+		}
+		
+		stones_win = new StoneWin[7];
+		for (int i = 0; i < stones_win.length; i++) {
+			stones_win[i] = new StoneWin();
+			stones_win[i].setBounds(30, 600 - 20 * i, 45, 45);
+			frmGewinnt.getContentPane().add(stones_win[i]);
 		}
 
 		arrows = new ColumnArrow[7];
