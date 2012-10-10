@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -79,7 +81,22 @@ public class BoardGui {
 		lbl_board.setBounds(87, 175, 525, 509);
 		frmGewinnt.getContentPane().add(lbl_board);
 		
+		
 		JButton bt_backtomenu = new JButton("Menu");
+		bt_backtomenu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				MainMenu mainmenu = new MainMenu();
+				mainmenu.createmainmenu();
+				
+				frmGewinnt.setVisible(false); 
+				frmGewinnt.dispose(); 
+				frmGewinnt = null; 
+			}
+			
+		});
 		bt_backtomenu.setBounds(630, 50, 60, 30);
 		frmGewinnt.getContentPane().add(bt_backtomenu);
 
