@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -79,11 +81,26 @@ public class BoardGui {
 		lbl_board.setBounds(87, 175, 525, 509);
 		frmGewinnt.getContentPane().add(lbl_board);
 
-		JButton bt_backtomenu = new JButton("Menu");
-		bt_backtomenu.setBounds(630, 50, 60, 30);
-		frmGewinnt.getContentPane().add(bt_backtomenu);
+		JButton btn_backtomenu = new JButton("Menu");
+		btn_backtomenu.setBounds(600, 25, 75, 75);
+		btn_backtomenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				openMenu();
+			}
+		});
+		frmGewinnt.getContentPane().add(btn_backtomenu);
 
-		stones_win = new StoneWin[7];
+		JButton btn_restart = new JButton("Restart");
+		btn_restart.setBounds(25, 25, 75, 75);
+		btn_restart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					resetStones();
+					resetBoard();
+			}
+		});
+		frmGewinnt.getContentPane().add(btn_restart);
+		
+		stones_win = new StoneWin[12];
 		for (int i = 0; i < stones_win.length; i++) {
 			stones_win[i] = new StoneWin();
 			stones_win[i].setBounds(30, 600 - 20 * i, 45, 45);
@@ -124,19 +141,50 @@ public class BoardGui {
 
 		frmGewinnt.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				MainMenu mainmenu = new MainMenu();
-				mainmenu.createmainmenu();
-				// Main.task.interrupted();
-				Main.ki1 = false;
-				Main.ki2 = false;
-				frmGewinnt.setVisible(false);
-				frmGewinnt.dispose();
-				frmGewinnt = null;
-
+				openMenu();
 			}
 		});
 
-		if (Main.ki1 && Main.board.getTurn() == 1)
+		if (Main.ki1>0 && Main.board.getTurn() == 1)
 			Main.task.kiTurn();
+	}
+
+	protected void resetBoard() {
+		for (int i = 0; i < 7; i++)
+			for (int j = 0; j < 6; j++)
+				Main.board.setBoard(i, j, 0);
+		Main.stone_r = 0;
+		Main.stone_y = 0;
+		Main.board.setTurn(1);
+		Main.gameover=false;
+		if(Main.ki1>0)
+			Main.task.kiTurn();
+	}
+
+	protected void resetStones() {
+		for (int i = 0; i < stones_win.length; i++) {
+			stones_win[i].setBounds(30, 600 - 20 * i, 45, 45);
+			stones_win[i].setVisible(false);
+		}
+		for (int i = 0; i < stones_yellow.length; i++) {
+			stones_yellow[i].setBounds(625, 600 - 20 * i, 45, 45);
+			stones_red[i].setBounds(30, 600 - 20 * i, 45, 45);	
+		}		
+		for (int i = 0; i < arrows.length; i++) {
+			arrows[i].setEnabled(true);
+		}
+
+		
+	}
+
+	protected void openMenu() {
+		MainMenu mainmenu = new MainMenu();
+		mainmenu.createmainmenu();
+		// Main.task.interrupted();
+		Main.ki1 = 0;
+		Main.ki2 = 0;
+		frmGewinnt.setVisible(false);
+		frmGewinnt.dispose();
+		frmGewinnt = null;		
 	}
 }

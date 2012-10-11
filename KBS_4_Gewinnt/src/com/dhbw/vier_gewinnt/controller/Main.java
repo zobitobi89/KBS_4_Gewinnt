@@ -10,8 +10,8 @@ public class Main {
 	public static int stone_y;
 	public static int stone_r;
 //	public static int turn;
-	public static boolean ki1;
-	public static boolean ki2;
+	public static int ki1;
+	public static int ki2;
 	public static boolean gameover;
 
 	/**
@@ -37,18 +37,18 @@ public class Main {
 		}
 
 		public void run() {
-			if (ki1 && ki2){
-				for (int j = 0; j < 7; j++)
-					BoardGui.arrows[j].setEnabled(false);
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					System.out.println(e.getMessage());
-				}
-				for (int j = 0; j < 7; j++)
-					BoardGui.arrows[j].setEnabled(true);
-			}
-			if (stone_y < 21 && stone_r < 21) {
+//			if (ki1 && ki2){
+//				for (int j = 0; j < 7; j++)
+//					BoardGui.arrows[j].setEnabled(false);
+//				try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					System.out.println(e.getMessage());
+//				}
+//				for (int j = 0; j < 7; j++)
+//					BoardGui.arrows[j].setEnabled(true);
+//			}
+			if (stone_y < 21 || stone_r < 21) {
 				BoardGui.arrows[PutStone.putStone()].doClick();
 			}
 		}

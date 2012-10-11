@@ -82,10 +82,10 @@ public class Board {
 	}
 
 	public void switchTurn() {
-		if (this.turn==1)
-			this.turn=2;
+		if (this.turn == 1)
+			this.turn = 2;
 		else
-			this.turn=1;
+			this.turn = 1;
 	}
 
 }

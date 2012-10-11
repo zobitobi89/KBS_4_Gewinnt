@@ -1,9 +1,11 @@
 package com.dhbw.vier_gewinnt.ki;
 
-import java.awt.List;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.dhbw.vier_gewinnt.controller.Main;
+import com.dhbw.vier_gewinnt.gui.BoardGui;
 import com.dhbw.vier_gewinnt.model.Board;
 
 public class PutStone {
@@ -15,6 +17,8 @@ public class PutStone {
 	private static final int POS_INFINITY = (int) Double.POSITIVE_INFINITY;
 	private static final int NEG_INFINITY = (int) Double.NEGATIVE_INFINITY;
 
+	// private static final int DIFFICULTY = 3;
+
 	/**
 	 * 
 	 * @return Column where to put stone (0-6)
@@ -22,16 +26,29 @@ public class PutStone {
 	public static int putStone() {
 		int pos = 0;
 		// pos = randomKI();
-		pos = alphabetaKI();
-		// TODO: Add other KIs
+		if (Main.board.getTurn() == 1) {
+			if (Main.ki1 == 9)
+				pos = randomKI();
+			else
+				pos = alphabetaKI(Main.ki1);
+		} else {
+			if (Main.ki2 == 9)
+				pos = randomKI();
+			else
+				pos = alphabetaKI(Main.ki2);
+		}
+
+		for (int j = 0; j < 7; j++)
+			BoardGui.arrows[j].setEnabled(true);
 		return pos;
 	}
 
 	/**
 	 * 
+	 * @param difficulty
 	 * @return
 	 */
-	private static int alphabetaKI() {
+	private static int alphabetaKI(int difficulty) {
 		boolean[] options = calcOptions(Main.board);
 		int[] value = new int[7];
 		Board temp_board = new Board();
@@ -39,7 +56,7 @@ public class PutStone {
 		int row = 0;
 		for (int i = 0; i < options.length; i++) {
 			if (options[i] == true) {
-				temp_board=Main.board.getBoard();
+				temp_board = Main.board.getBoard();
 				for (int j = 0; j < 6; j++) {
 					if (temp_board.getValue(i, j) == 0) {
 						row = j;
@@ -48,40 +65,49 @@ public class PutStone {
 				}
 				temp_board.setBoard(i, row, temp_board.getTurn());
 				temp_board.switchTurn();
-				value[i] = abmax(8, NEG_INFINITY, POS_INFINITY, temp_board);
+				value[i] = abmin(difficulty, NEG_INFINITY + 1,
+						POS_INFINITY - 1, temp_board);
 			} else {
-					value[i] = NEG_INFINITY;
+				value[i] = NEG_INFINITY;
 			}
 		}
-		int max = NEG_INFINITY;
-		//int n = 0;
+		int max = NEG_INFINITY + 1;
+		// int n = 0;
 		ArrayList<Integer> rand = new ArrayList<Integer>();
 		for (int i = 0; i < 7; i++) {
 			if (value[i] > max) {
 				max = value[i];
-				//n = i;
+				// n = i;
 				rand.clear();
 				rand.add(i);
 				/*---DEBUG---Start---*/
-				System.out.println("WAHL: Spalte= " + i + ", max= " + max+ ", Turn: "+(Main.board.getTurn()==1?"rot":"gelb"));
+				System.out.println("WAHL: Spalte= " + i + ", max= " + max
+						+ ", Turn: "
+						+ (Main.board.getTurn() == 1 ? "rot" : "gelb"));
 				/*---DEBUG---End---*/
-			}
-			else if (value[i]==max){
+			} else if (value[i] == max) {
 				rand.add(i);
 				/*---DEBUG---Start---*/
-				System.out.println("WAHL: Spalte= " + i + ", max= " + max+ ", Turn: "+(Main.board.getTurn()==1?"rot":"gelb"));
+				System.out.println("WAHL: Spalte= " + i + ", max= " + max
+						+ ", Turn: "
+						+ (Main.board.getTurn() == 1 ? "rot" : "gelb"));
 				/*---DEBUG---End---*/
 			}
 		}
-//		if (rand.isEmpty()) 
-//			return n;
-//		else {
-			int r= (int)Math.round(Math.random())*(rand.size()-1);
-			/*---DEBUG---Start---*/
-			System.out.println("Endgültig: Spalte= " + rand.get(r) + ", max= " + max+ ", Turn: "+(Main.board.getTurn()==1?"rot":"gelb"));
-			/*---DEBUG---End---*/
-			return rand.get(r);
-//		}
+		// if (rand.isEmpty())
+		// return n;
+		// else {
+		int r = (int) Math.round(Math.random()) * (rand.size() - 1);
+		/*---DEBUG---Start---*/
+		System.out.println("Endgültig: Spalte= " + rand.get(r) + ", max= "
+				+ max + ", Turn: "
+				+ (Main.board.getTurn() == 1 ? "rot" : "gelb"));
+		/*---DEBUG---End---*/
+		if (max == POS_INFINITY - 1)
+			JOptionPane.showMessageDialog(null,
+					"Set wherever you like, I have always won!");
+		return rand.get(r);
+		// }
 	}
 
 	/**
@@ -121,7 +147,7 @@ public class PutStone {
 		for (int i = 0; i < tmp_board.getWidth(); i++) {
 			//
 			if (tmp_board.getValue(i, 5) == 0) {
-				tmp_board=temp_board.getBoard();
+				tmp_board = temp_board.getBoard();
 				for (int j = 0; j < tmp_board.getHeight(); j++) {
 					if (temp_board.getValue(i, j) == 0) {
 						row = j;
@@ -150,7 +176,7 @@ public class PutStone {
 		for (int i = 0; i < tmp_board.getWidth(); i++) {
 			//
 			if (tmp_board.getValue(i, 5) == 0) {
-				tmp_board=temp_board.getBoard();
+				tmp_board = temp_board.getBoard();
 				for (int j = 0; j < tmp_board.getHeight(); j++) {
 					if (tmp_board.getValue(i, j) == 0) {
 						row = j;
@@ -169,54 +195,31 @@ public class PutStone {
 		}
 		return b;
 	}
-	
-	
-	/*private static int minimaxWert(Board temp_board, int tiefe, int alpha,
-			int beta) {
 
-		Board tmp_board;
-		int minimax_tmp;
-		int minimax_lokal;
-		// Initialisiere bisher besten gefundenen Wert
-		
-		if (temp_board.getZug()) // Ist Computer (MAX) am Zug?
-			minimax_lokal = alpha;
-		else
-			minimax_lokal = beta;
-
-		// Abbruch bei erreichter Maximaltiefe, aktuelle Situation
-		// wird mit Funktion bewertung() bewertet.
-		if (tiefe == 0)
-			return evaluate(tmp_board);
-		// Ansonsten untersuche (rek.) alle möglichen Zuege
-		else {
-			for (int spalte = 0; spalte < BREITE; spalte++) {
-				tmp_board = temp_board.copy();
-				if (tmp_board.wirfChip(spalte)) { // gueltiger Zug?
-					minimax_tmp = minimaxWert(tmp_board, tiefe - 1, alpha, beta);
-					// Merke min./max. Bewertung, je nachdem wer am Zug ist
-					if (temp_board.getZug()) {
-						minimax_lokal = java.lang.Math.max(minimax_tmp,
-								minimax_lokal);
-						alpha = minimax_lokal;
-						if (alpha >= beta)
-							return beta;
-					} else {
-						minimax_lokal = java.lang.Math.min(minimax_tmp,
-								minimax_lokal);
-						beta = minimax_lokal;
-						if (beta <= alpha)
-							return alpha;
-					}
-					;
-				}
-				;
-			}
-			;
-			return minimax_lokal;
-		}
-
-	}*/
+	/*
+	 * private static int minimaxWert(Board temp_board, int tiefe, int alpha,
+	 * int beta) {
+	 * 
+	 * Board tmp_board; int minimax_tmp; int minimax_lokal; // Initialisiere
+	 * bisher besten gefundenen Wert
+	 * 
+	 * if (temp_board.getZug()) // Ist Computer (MAX) am Zug? minimax_lokal =
+	 * alpha; else minimax_lokal = beta;
+	 * 
+	 * // Abbruch bei erreichter Maximaltiefe, aktuelle Situation // wird mit
+	 * Funktion bewertung() bewertet. if (tiefe == 0) return
+	 * evaluate(tmp_board); // Ansonsten untersuche (rek.) alle möglichen Zuege
+	 * else { for (int spalte = 0; spalte < BREITE; spalte++) { tmp_board =
+	 * temp_board.copy(); if (tmp_board.wirfChip(spalte)) { // gueltiger Zug?
+	 * minimax_tmp = minimaxWert(tmp_board, tiefe - 1, alpha, beta); // Merke
+	 * min./max. Bewertung, je nachdem wer am Zug ist if (temp_board.getZug()) {
+	 * minimax_lokal = java.lang.Math.max(minimax_tmp, minimax_lokal); alpha =
+	 * minimax_lokal; if (alpha >= beta) return beta; } else { minimax_lokal =
+	 * java.lang.Math.min(minimax_tmp, minimax_lokal); beta = minimax_lokal; if
+	 * (beta <= alpha) return alpha; } ; } ; } ; return minimax_lokal; }
+	 * 
+	 * }
+	 */
 
 	private static int evaluate(Board tmp_board) {
 		Board board = tmp_board;
@@ -225,76 +228,84 @@ public class PutStone {
 		int min3er = 0;
 		int max3er = 0;
 
+		int player1 = tmp_board.getTurn();
+		int player2;
+		if (player1 == 1)
+			player2 = 2;
+		else
+			player2 = 1;
 		for (int x = 0; x < board.getWidth(); x++) {
 			for (int y = 0; y < board.getHeight(); y++) {
-				// Noch 4 Chips nach oben moeglich?
+				// Still 4 Stones vertical possible?
 				if (board.getHeight() - y >= 4) {
-					// 4 gleiche Chips?
-					if (isRow(board, 1, x, y, 0, 1) == 4)
-						return POS_INFINITY; // gewonnen
-					else if (isRow(board, 2, x, y, 0, 1) == 4)
-						return NEG_INFINITY; // verloren
-					// 3 gleiche Chips?
-					else if (isRow(board, 1, x, y, 0, 1) == 3)
+					// 4 Stones in a row?
+					if (isRow(board, player1, x, y, 0, 1) == 4)
+						return POS_INFINITY - 1; // WIN
+					else if (isRow(board, player2, x, y, 0, 1) == 4)
+						return NEG_INFINITY + 1; // LOSE
+					// 3 Stones in a row?
+					else if (isRow(board, player1, x, y, 0, 1) == 3)
 						max3er++;
-					else if (isRow(board, 2, x, y, 0, 1) == 3)
+					else if (isRow(board, player2, x, y, 0, 1) == 3)
 						min3er++;
-					// 2 gleiche Chips?
-					else if (isRow(board, 1, x, y, 0, 1) == 2)
+					// 2 Stones in a row?
+					else if (isRow(board, player1, x, y, 0, 1) == 2)
 						max2er++;
-					else if (isRow(board, 2, x, y, 0, 1) == 2)
+					else if (isRow(board, player2, x, y, 0, 1) == 2)
 						min2er++;
 				}
-				// Noch 4 Chips nach rechts oben moeglich?
+				// Still 4 Stones diagonal NorthEast possible?
 				if ((board.getHeight() - y >= 4) && (board.getWidth() - x >= 4)) {
-					// 4 gleiche Chips nach rechts oben?
-					if (isRow(board, 1, x, y, 1, 1) == 4)
-						return POS_INFINITY; // gewonnen
-					else if (isRow(board, 2, x, y, 1, 1) == 4)
-						return NEG_INFINITY; // verloren
-					// 3 gleiche Chips uebereinander?
-					else if (isRow(board, 1, x, y, 1, 1) == 3)
+					// 4 Stones in a row?
+					if (isRow(board, player1, x, y, 1, 1) == 4)
+						return POS_INFINITY - 1; // WIN
+					else if (isRow(board, player2, x, y, 1, 1) == 4)
+						return NEG_INFINITY + 1; // LOSE
+					// 3 Stones in a row?
+					else if (isRow(board, player1, x, y, 1, 1) == 3)
 						max3er++;
-					else if (isRow(board, 2, x, y, 1, 1) == 3)
+					else if (isRow(board, player2, x, y, 1, 1) == 3)
 						min3er++;
-					// 2 gleiche Chips uebereinander?
-					else if (isRow(board, 1, x, y, 1, 1) == 2)
+					// 2 Stones in a row?
+					else if (isRow(board, player1, x, y, 1, 1) == 2)
 						max2er++;
-					else if (isRow(board, 2, x, y, 1, 1) == 2)
+					else if (isRow(board, player2, x, y, 1, 1) == 2)
 						min2er++;
 				}
-				// Noch 4 Chips nach rechts moeglich?
+				// Still 4 Stones horizontal possible?
 				if (board.getWidth() - x >= 4) {
-					if (isRow(board, 1, x, y, 1, 0) == 4)
-						return POS_INFINITY; // gewonnen
-					else if (isRow(board, 2, x, y, 1, 0) == 4)
-						return NEG_INFINITY; // verloren
-					// 3 gleiche Chips uebereinander?
-					else if (isRow(board, 1, x, y, 1, 0) == 3)
+					// 4 Stones in a row?
+					if (isRow(board, player1, x, y, 1, 0) == 4)
+						return POS_INFINITY - 1; // WIN
+					else if (isRow(board, player2, x, y, 1, 0) == 4)
+						return NEG_INFINITY + 1; // LOSE
+					// 3 Stones in a row?
+					else if (isRow(board, player1, x, y, 1, 0) == 3)
 						max3er++;
-					else if (isRow(board, 2, x, y, 1, 0) == 3)
+					else if (isRow(board, player2, x, y, 1, 0) == 3)
 						min3er++;
-					// 2 gleiche Chips uebereinander?
-					else if (isRow(board, 1, x, y, 1, 0) == 2)
+					// 2 Stones in a row?
+					else if (isRow(board, player1, x, y, 1, 0) == 2)
 						max2er++;
-					else if (isRow(board, 2, x, y, 1, 0) == 2)
+					else if (isRow(board, player2, x, y, 1, 0) == 2)
 						min2er++;
 				}
-				// Noch 4 Chips nach rechts unten moeglich?
+				// Still 4 Stones diagonal SouthEast possible?
 				if ((board.getWidth() - x >= 4) && (y >= 3)) {
-					if (isRow(board, 1, x, y, 1, -1) == 4)
-						return POS_INFINITY; // gewonnen
-					else if (isRow(board, 2, x, y, 1, -1) == 4)
-						return NEG_INFINITY; // verloren
-					// 3 gleiche Chips uebereinander?
-					else if (isRow(board, 1, x, y, 1, -1) == 3)
+					// 4 Stones in a row?
+					if (isRow(board, player1, x, y, 1, -1) == 4)
+						return POS_INFINITY - 1; // WIN
+					else if (isRow(board, player2, x, y, 1, -1) == 4)
+						return NEG_INFINITY + 1; // LOSE
+					// 3 Stones in a row?
+					else if (isRow(board, player1, x, y, 1, -1) == 3)
 						max3er++;
-					else if (isRow(board, 2, x, y, 1, -1) == 3)
+					else if (isRow(board, player2, x, y, 1, -1) == 3)
 						min3er++;
-					// 2 gleiche Chips uebereinander?
-					else if (isRow(board, 1, x, y, 1, -1) == 2)
+					// 2 Stones in a row?
+					else if (isRow(board, player1, x, y, 1, -1) == 2)
 						max2er++;
-					else if (isRow(board, 2, x, y, 1, -1) == 2)
+					else if (isRow(board, player2, x, y, 1, -1) == 2)
 						min2er++;
 				}
 			}

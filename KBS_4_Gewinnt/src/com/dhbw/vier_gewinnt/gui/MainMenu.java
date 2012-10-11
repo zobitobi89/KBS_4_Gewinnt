@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,7 +24,9 @@ public class MainMenu {
 
 	private JFrame frmGewinnt;
 	private JCheckBox cbx_ki1;
+	private JComboBox cmb_ki1;
 	private JCheckBox cbx_ki2;
+	private JComboBox cmb_ki2;
 	private JCheckBox cbx_human1;
 	private JCheckBox cbx_human2;
 	private JRadioButton rbtn_8x8;
@@ -63,7 +66,7 @@ public class MainMenu {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double s_width = screenSize.getWidth();
 		double s_height = screenSize.getHeight();
-		int left = (int) ((s_width - 300) / 2);
+		int left = (int) ((s_width - 400) / 2);
 		int top = (int) ((s_height - 220) / 2);
 
 		frmGewinnt = new JFrame();
@@ -71,7 +74,7 @@ public class MainMenu {
 		frmGewinnt.setIconImage(Toolkit.getDefaultToolkit().getImage(
 				MainMenu.class.getResource("/resources/logo.png")));
 		frmGewinnt.setResizable(false);
-		frmGewinnt.setBounds(left, top, 300, 220);
+		frmGewinnt.setBounds(left, top, 400, 220);
 		frmGewinnt.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGewinnt.getContentPane().setLayout(null);
 
@@ -98,29 +101,64 @@ public class MainMenu {
 		cbx_ki1.setBounds(217, 31, 49, 23);
 		cbx_ki1.setContentAreaFilled(false);
 		cbx_ki1.setBorderPainted(false);
+		cbx_ki1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					cmb_ki1.setVisible(true);
+			}
+		});
 		frmGewinnt.getContentPane().add(cbx_ki1);
+		
+		
+		cmb_ki1 = new JComboBox(new Object[]{"Very Obvious(1)","Obvious(2)","Thinking(3)","Normal(4)","Challenging(5)","Difficult(6)","Very Difficult(7)","Impossible(8)", "Random(?)"});
+		cmb_ki1.setBounds(260, 31, 120, 23);
+		cmb_ki1.setVisible(false);
+		frmGewinnt.getContentPane().add(cmb_ki1);
 
 		cbx_ki2 = new JCheckBox("KI");
-		cbx_ki2.setSelected(true);
 		buttonGroup_2.add(cbx_ki2);
 		cbx_ki2.setBounds(217, 71, 49, 23);
 		cbx_ki2.setContentAreaFilled(false);
 		cbx_ki2.setBorderPainted(false);
+		cbx_ki2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					cmb_ki2.setVisible(true);
+			}
+		});
 		frmGewinnt.getContentPane().add(cbx_ki2);
 
+		cmb_ki2 = new JComboBox(new Object[]{"Very Obvious(1)","Obvious(2)","Thinking(3)","Normal(4)","Challenging(5)","Difficult(6)","Very Difficult(7)","Impossible(8)", "Random(?)"});
+		cmb_ki2.setBounds(260, 71, 120, 23);
+		cmb_ki2.setVisible(false);
+		frmGewinnt.getContentPane().add(cmb_ki2);
+		
 		cbx_human1 = new JCheckBox("Human");
 		cbx_human1.setSelected(true);
 		buttonGroup_1.add(cbx_human1);
 		cbx_human1.setBounds(145, 31, 70, 23);
 		cbx_human1.setContentAreaFilled(false);
 		cbx_human1.setBorderPainted(false);
+		cbx_human1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					cmb_ki1.setVisible(false);
+			}
+		});
 		frmGewinnt.getContentPane().add(cbx_human1);
 
 		cbx_human2 = new JCheckBox("Human");
+		cbx_human2.setSelected(true);
 		buttonGroup_2.add(cbx_human2);
 		cbx_human2.setBounds(145, 71, 70, 23);
 		cbx_human2.setContentAreaFilled(false);
 		cbx_human2.setBorderPainted(false);
+		cbx_human2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					cmb_ki2.setVisible(false);
+			}
+		});
 		frmGewinnt.getContentPane().add(cbx_human2);
 
 		rbtn_8x8 = new JRadioButton("8 x 8");
@@ -144,7 +182,7 @@ public class MainMenu {
 				checkSelection();
 			}
 		});
-		btn_play.setBounds(185, 148, 89, 23);
+		btn_play.setBounds(290, 150, 90, 23);
 		frmGewinnt.getContentPane().add(btn_play);
 
 		JButton btn_rules = new JButton("Rules");
@@ -155,7 +193,7 @@ public class MainMenu {
 				frmGewinnt.dispose();
 			}
 		});
-		btn_rules.setBounds(30, 148, 89, 23);
+		btn_rules.setBounds(30, 150, 90, 23);
 		frmGewinnt.getContentPane().add(btn_rules);
 
 		JButton btn_about = new JButton("?");
@@ -168,7 +206,7 @@ public class MainMenu {
 		});
 		btn_about.setSelectedIcon(null);
 		btn_about.setIcon(null);
-		btn_about.setBounds(245, 1, 49, 23);
+		btn_about.setBounds(330, 1, 50, 23);
 		frmGewinnt.getContentPane().add(btn_about);
 
 		JLabel lbl_background = new JLabel(new ImageIcon(
@@ -179,17 +217,17 @@ public class MainMenu {
 
 	private void checkSelection() {
 		if (cbx_human1.isSelected() && cbx_human2.isSelected()) {
-			Main.ki1 = false;
-			Main.ki2 = false;
+			Main.ki1 = 0;
+			Main.ki2 = 0;
 		} else if (cbx_ki1.isSelected() && cbx_human2.isSelected()) {
-			Main.ki1 = true;
-			Main.ki2 = false;
+			Main.ki1 = cmb_ki1.getSelectedIndex()+1;
+			Main.ki2 = 0;
 		} else if (cbx_human1.isSelected() && cbx_ki2.isSelected()) {
-			Main.ki1 = false;
-			Main.ki2 = true;
+			Main.ki1 = 0;
+			Main.ki2 = cmb_ki2.getSelectedIndex()+1;
 		} else if (cbx_ki1.isSelected() && cbx_ki2.isSelected()) {
-			Main.ki1 = true;
-			Main.ki2 = true;
+			Main.ki1 = cmb_ki1.getSelectedIndex()+1;
+			Main.ki2 = cmb_ki2.getSelectedIndex()+1;
 		}
 
 		if (rbtn_7x6.isSelected()) {
