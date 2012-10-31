@@ -102,7 +102,7 @@ public class ColumnArrow extends JButton {
 				} else
 					BoardGui.lbl_status.setText("It is Reds Turn");
 			}
-			if (Main.stone_r == 21 && Main.stone_y == 21) {
+			if (Main.stone_r == 21 && Main.stone_y == 21 && !Main.gameover) {
 				BoardGui.lbl_status.setText("Draw");
 				Main.gameover = true;
 			}

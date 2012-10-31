@@ -2,8 +2,6 @@ package com.dhbw.vier_gewinnt.ki;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import com.dhbw.vier_gewinnt.controller.Main;
 import com.dhbw.vier_gewinnt.gui.BoardGui;
 import com.dhbw.vier_gewinnt.model.Board;
@@ -104,8 +102,8 @@ public class PutStone {
 				+ (Main.board.getTurn() == 1 ? "rot" : "gelb"));
 		/*---DEBUG---End---*/
 		if (max == POS_INFINITY - 1)
-			JOptionPane.showMessageDialog(null,
-					"Set wherever you like, I have always won!");
+			BoardGui.lbl_message.setText("<html><body><center>"+(Main.board.getTurn() == 1 ? "Red"
+					: "Yellow")+"<br>" + " made sure of victory.</center></body></html>");
 		return rand.get(r);
 		// }
 	}

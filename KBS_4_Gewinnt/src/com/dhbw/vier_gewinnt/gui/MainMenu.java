@@ -29,7 +29,7 @@ public class MainMenu {
 	private JComboBox cmb_ki2;
 	private JCheckBox cbx_human1;
 	private JCheckBox cbx_human2;
-	private JRadioButton rbtn_8x8;
+	//private JRadioButton rbtn_8x8;
 	private JRadioButton rbtn_7x6;
 
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -111,7 +111,7 @@ public class MainMenu {
 		
 		
 		cmb_ki1 = new JComboBox(new Object[]{"Very Obvious(1)","Obvious(2)","Thinking(3)","Normal(4)","Challenging(5)","Difficult(6)","Very Difficult(7)","Impossible(8)", "Random(?)"});
-		cmb_ki1.setBounds(260, 31, 120, 23);
+		cmb_ki1.setBounds(260, 31, 130, 23);
 		cmb_ki1.setVisible(false);
 		frmGewinnt.getContentPane().add(cmb_ki1);
 
@@ -129,7 +129,7 @@ public class MainMenu {
 		frmGewinnt.getContentPane().add(cbx_ki2);
 
 		cmb_ki2 = new JComboBox(new Object[]{"Very Obvious(1)","Obvious(2)","Thinking(3)","Normal(4)","Challenging(5)","Difficult(6)","Very Difficult(7)","Impossible(8)", "Random(?)"});
-		cmb_ki2.setBounds(260, 71, 120, 23);
+		cmb_ki2.setBounds(260, 71, 130, 23);
 		cmb_ki2.setVisible(false);
 		frmGewinnt.getContentPane().add(cmb_ki2);
 		
@@ -161,12 +161,12 @@ public class MainMenu {
 		});
 		frmGewinnt.getContentPane().add(cbx_human2);
 
-		rbtn_8x8 = new JRadioButton("8 x 8");
-		buttonGroup.add(rbtn_8x8);
-		rbtn_8x8.setBounds(217, 111, 57, 23);
-		rbtn_8x8.setContentAreaFilled(false);
-		rbtn_8x8.setBorderPainted(false);
-		frmGewinnt.getContentPane().add(rbtn_8x8);
+//		rbtn_8x8 = new JRadioButton("8 x 8");
+//		buttonGroup.add(rbtn_8x8);
+//		rbtn_8x8.setBounds(217, 111, 57, 23);
+//		rbtn_8x8.setContentAreaFilled(false);
+//		rbtn_8x8.setBorderPainted(false);
+//		frmGewinnt.getContentPane().add(rbtn_8x8);
 
 		rbtn_7x6 = new JRadioButton("7 x 6");
 		buttonGroup.add(rbtn_7x6);

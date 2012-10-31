@@ -23,6 +23,7 @@ public class BoardGui {
 	public static StoneRed[] stones_red;
 	public static StoneWin[] stones_win;
 	public static JLabel lbl_status;
+	public static JLabel lbl_message;
 	public static ColumnArrow[] arrows;
 
 	// private JTable table;
@@ -81,7 +82,12 @@ public class BoardGui {
 		lbl_board.setBounds(87, 175, 525, 509);
 		frmGewinnt.getContentPane().add(lbl_board);
 
-		JButton btn_backtomenu = new JButton("Menu");
+		JButton btn_backtomenu = new JButton();
+		btn_backtomenu.setIcon(new ImageIcon(BoardGui.class
+				.getResource("/resources/home_icon1.png")));
+		btn_backtomenu.setContentAreaFilled(false);
+		btn_backtomenu.setBorderPainted(false);
+		btn_backtomenu.setFocusPainted(false);
 		btn_backtomenu.setBounds(600, 25, 75, 75);
 		btn_backtomenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,7 +96,12 @@ public class BoardGui {
 		});
 		frmGewinnt.getContentPane().add(btn_backtomenu);
 
-		JButton btn_restart = new JButton("Restart");
+		JButton btn_restart = new JButton();
+		btn_restart.setIcon(new ImageIcon(BoardGui.class
+				.getResource("/resources/reset_arrow1.png")));
+		btn_restart.setContentAreaFilled(false);
+		btn_restart.setBorderPainted(false);
+		btn_restart.setFocusPainted(false);
 		btn_restart.setBounds(25, 25, 75, 75);
 		btn_restart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -134,6 +145,11 @@ public class BoardGui {
 		lbl_status.setBounds(87, 700, 525, 40);
 		frmGewinnt.getContentPane().add(lbl_status);
 
+		lbl_message = new JLabel("", JLabel.CENTER);
+		lbl_message.setFont(new Font("Serif", Font.BOLD, 32));
+		lbl_message.setBounds(87, 620, 525, 80);
+		frmGewinnt.getContentPane().add(lbl_message);
+		
 		JLabel lbl_background = new JLabel(new ImageIcon(
 				BoardGui.class.getResource("/resources/holz1.png")));
 		lbl_background.setBounds(0, 0, 700, 800);
@@ -173,6 +189,8 @@ public class BoardGui {
 		for (int i = 0; i < arrows.length; i++) {
 			arrows[i].setEnabled(true);
 		}
+		lbl_message.setText("");
+		lbl_status.setText("It is Reds Turn");
 
 		
 	}
