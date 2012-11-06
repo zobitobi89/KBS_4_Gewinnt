@@ -47,6 +47,8 @@ public class PutStone {
 	 * @return
 	 */
 	private static int alphabetaKI(int difficulty) {
+		if (difficulty%2==0)
+			difficulty--;
 		boolean[] options = calcOptions(Main.board);
 		int[] value = new int[7];
 		Board temp_board = new Board();
@@ -194,30 +196,6 @@ public class PutStone {
 		return b;
 	}
 
-	/*
-	 * private static int minimaxWert(Board temp_board, int tiefe, int alpha,
-	 * int beta) {
-	 * 
-	 * Board tmp_board; int minimax_tmp; int minimax_lokal; // Initialisiere
-	 * bisher besten gefundenen Wert
-	 * 
-	 * if (temp_board.getZug()) // Ist Computer (MAX) am Zug? minimax_lokal =
-	 * alpha; else minimax_lokal = beta;
-	 * 
-	 * // Abbruch bei erreichter Maximaltiefe, aktuelle Situation // wird mit
-	 * Funktion bewertung() bewertet. if (tiefe == 0) return
-	 * evaluate(tmp_board); // Ansonsten untersuche (rek.) alle möglichen Zuege
-	 * else { for (int spalte = 0; spalte < BREITE; spalte++) { tmp_board =
-	 * temp_board.copy(); if (tmp_board.wirfChip(spalte)) { // gueltiger Zug?
-	 * minimax_tmp = minimaxWert(tmp_board, tiefe - 1, alpha, beta); // Merke
-	 * min./max. Bewertung, je nachdem wer am Zug ist if (temp_board.getZug()) {
-	 * minimax_lokal = java.lang.Math.max(minimax_tmp, minimax_lokal); alpha =
-	 * minimax_lokal; if (alpha >= beta) return beta; } else { minimax_lokal =
-	 * java.lang.Math.min(minimax_tmp, minimax_lokal); beta = minimax_lokal; if
-	 * (beta <= alpha) return alpha; } ; } ; } ; return minimax_lokal; }
-	 * 
-	 * }
-	 */
 
 	private static int evaluate(Board tmp_board) {
 		Board board = tmp_board;
